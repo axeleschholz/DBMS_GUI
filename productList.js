@@ -28,12 +28,8 @@ function getData() {
         "</td><td>";
       html_string +=
         '<a href="#" onclick="getRecordById(' +
-        object["id"] +
+        object["customer_id"] +
         '); return false;">view</a>&nbsp;';
-      html_string += //add a conditional on being a manager at the store
-        '<a href="#" onclick="deleteRecordById(' +
-        object["id"] +
-        '); return false;">delete</a>';
       html_string += "</td></tr>";
     });
 
@@ -42,34 +38,52 @@ function getData() {
   });
 }
 
-function deleteRecordById(id) {
-  $.get("server.php?action=deleteone&id=" + id, function (data) {
-    //alert("deleted");
-    document.getElementById(id).style.display = "none";
+//this method will "get" a specific record (by id) and open a Dialog to view the details (e.g. email address)
+function getDetails(id) {
+  $.get("server.php?action=getcustomerorders&id=" + id, function (data) {
+    //build the dynamic HTML
+    var html_string = "";
+    html_string +=
+      "<tr></td><td colspan=6><table style='border-spacing:5px'><thead class='thead-dark'><tr><th>Order No.</th><th>Total</th><th>Description</th><th>Date</th></tr></thead><tbody>";
+    $(data).each(function (key, object) {
+      //HTML table row
+
+      html_string +=
+        '<tr id="' +
+        object["order_id"] +
+        '"><td>' +
+        object["order_id"] +
+        "</td><td>" +
+        object["total"] +
+        "</td><td>" +
+        object["description"] +
+        "</td><td>" +
+        object["date"] +
+        "</td></tr>";
+    });
+    html_string += "</tbody></td>";
+
+    //set the HTML in the div on the dialog
+    var html_command =
+      '<a href="#" onclick="closeRecord(' +
+      id +
+      '); return false;">hide</a>&nbsp;';
+    $("#customers > tbody > #" + id).after(html_string);
+    $("#customers > tbody > #" + id + " > td")
+      .eq(5)
+      .html(html_command);
   });
 }
 
-//this method will "get" a specific record (by id) and open a Dialog to view the details (e.g. email address)
-function getRecordById(id) {
-  //make a request to server.php
-  $.get("server.php?action=getone&id=" + id, function (data) {
-    //build the dynamic HTML
-    $(data).each(function (key, object) {
-      //HTML table row
-      html_string +=
-        '<tr id="' +
-        object["Offering_id"] +
-        '"><td>' +
-        object["Price"] +
-        "</td><td>" +
-        object["Price"] +
-        "</td></tr>";
-    });
-
-    //set the HTML in the div on the dialog
-    $("#dialog_content").html(html_string);
-
-    //open the dialog
-    $("#dialog").dialog("open");
-  });
+function closeDetails(id) {
+  var html_command =
+    '<a href="#" onclick="getDetails(' +
+    id +
+    '); return false;">view</a>&nbsp;';
+  $("#customers > tbody > #" + id)
+    .next()
+    .remove();
+  $("#customers > tbody > #" + id + " > td")
+    .eq(5)
+    .html(html_command);
 }
