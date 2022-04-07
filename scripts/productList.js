@@ -1,7 +1,5 @@
 //fire the getData() function when the page loads
 $(document).ready(function () {
-  //initialize dialog box (jQuery UI) with config settings (show/hide animation)
-
   //get all the data
   getData();
 });
@@ -9,11 +7,10 @@ $(document).ready(function () {
 //this method will "get" all data, build the table rows and insert the HTML into the table body
 function getData() {
   //make a request to server.php
-  $.get("server.php?action=getall", function (data) {
+  $.get("server.php?action=getProducts", function (data) {
     //iterate over the JSON response, building an HTML string
     var html_string = "";
 
-    var html_string = "";
     $(data).each(function (key, object) {
       //HTML table row
       html_string += '<tr id="' + object["Product_id"]; //Add a conditional for organic = green
@@ -40,7 +37,7 @@ function getData() {
 
 //this method will "get" a specific record (by id) and open a Dialog to view the details (e.g. email address)
 function getDetails(id) {
-  $.get("server.php?action=getcustomerorders&id=" + id, function (data) {
+  $.get("server.php?action=getProducts&id=" + id, function (data) {
     //build the dynamic HTML
     var html_string = "";
     html_string +=

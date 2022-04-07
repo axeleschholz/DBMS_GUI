@@ -17,20 +17,25 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
         <!--the script for this page, requests data from API when page is loadd -->
-        <script src="scripts/storeList.js"></script>
+        <script src="script.js"></script>
     </head>
     <body>
 
         <div class="container">
+            <div class="information">
+                
+            </div>
 
-            <h2>Stores:</h2>
-
+            <h2>Offerings:</h2>
             <table class='table table-bordered table-striped'>
                 <thead class='thead-dark'>
                     <tr>
                         <th>Name</th>
-                        <th>Location</th>
-                        <th></th>
+                        <th>Brand</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Lifetime</th>
+                        <th>Price</th>
                     </tr>
                 </thead>
                 <tbody id="table_body">
