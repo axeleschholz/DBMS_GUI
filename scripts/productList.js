@@ -10,63 +10,70 @@ function getData() {
   $.get("server.php?action=getProducts", function (data) {
     //iterate over the JSON response, building an HTML string
     var html_string = "";
-
     $(data).each(function (key, object) {
       //HTML table row
-      html_string += '<tr id="' + object["Product_id"]; //Add a conditional for organic = green
-      '"><td>' +
-        object["Name"] +
+      html_string +=
+        '<tr id="' +
+        object["product_id"] +
+        '"><td>' +
+        object["name"] +
         "</td><td>" +
-        object["Brand"] +
+        object["brand"] +
         "</td><td>" +
-        object["Description"] +
+        object["description"] +
         "</td><td>" +
-        object["Lifetime"] +
+        object["description"] +
+        "</td><td>" +
+        object["lifespan"] +
         "</td><td>";
       html_string +=
-        '<a href="#" onclick="getRecordById(' +
-        object["customer_id"] +
+        '<a href="#" onclick="getDetails(' +
+        object["product_id"] +
         '); return false;">view</a>&nbsp;';
       html_string += "</td></tr>";
     });
-
     //set the HTML string on the client
     $("#table_body").html(html_string);
   });
 }
 
+//A work in progress
+function getStore(id) {
+  //make a request to server.php
+  var store = $.get("server.php?action=getStore?id=" + id, function (data) {
+    store = JSON.parse(data); //this may not be correct
+    return store;
+  });
+  return store;
+}
+
 //this method will "get" a specific record (by id) and open a Dialog to view the details (e.g. email address)
 function getDetails(id) {
-  $.get("server.php?action=getProducts&id=" + id, function (data) {
+  $.get("server.php?action=getProduct&id=" + id, function (data) {
     //build the dynamic HTML
     var html_string = "";
     html_string +=
-      "<tr></td><td colspan=6><table style='border-spacing:5px'><thead class='thead-dark'><tr><th>Order No.</th><th>Total</th><th>Description</th><th>Date</th></tr></thead><tbody>";
+      "<tr></td><td colspan=6><table class='table'><thead class='thead-dark'><tr><th>Price</th><th>Date</th></tr></thead><tbody>";
     $(data).each(function (key, object) {
       //HTML table row
-
       html_string +=
         '<tr id="' +
-        object["order_id"] +
+        object["offering_id"] +
         '"><td>' +
-        object["order_id"] +
+        object["price"] +
         "</td><td>" +
-        object["total"] +
-        "</td><td>" +
-        object["description"] +
-        "</td><td>" +
-        object["date"] +
+        object["update_time"] +
         "</td></tr>";
     });
     html_string += "</tbody></td>";
 
     //set the HTML in the div on the dialog
     var html_command =
-      '<a href="#" onclick="closeRecord(' +
+      '<a href="#" onclick="closeDetails(' +
       id +
       '); return false;">hide</a>&nbsp;';
-    $("#customers > tbody > #" + id).after(html_string);
-    $("#customers > tbody > #" + id + " > td")
+    $("#products > tbody > #" + id).after(html_string);
+    $("#products > tbody > #" + id + " > td")
       .eq(5)
       .html(html_command);
   });
@@ -77,10 +84,10 @@ function closeDetails(id) {
     '<a href="#" onclick="getDetails(' +
     id +
     '); return false;">view</a>&nbsp;';
-  $("#customers > tbody > #" + id)
+  $("#products > tbody > #" + id)
     .next()
     .remove();
-  $("#customers > tbody > #" + id + " > td")
+  $("#products > tbody > #" + id + " > td")
     .eq(5)
     .html(html_command);
 }

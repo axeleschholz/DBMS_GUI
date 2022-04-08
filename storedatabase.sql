@@ -1,6 +1,6 @@
-CREATE DATABASE `store_databse`;
+CREATE DATABASE `store_database`;
 
-USE `store_databse`;
+USE `store_database`;
 
 CREATE USER 'administrator'@'localhost' IDENTIFIED BY 'passw0rd';
 
@@ -45,20 +45,20 @@ CREATE TABLE `product` (
   FOREIGN KEY (`category_id`) REFERENCES `category`(`category_id`)
 );
 
+CREATE TABLE `store` (
+  `store_id` INT UNSIGNED AUTO_INCREMENT,
+  `name` VARCHAR(50),
+  `location` VARCHAR(50),
+  PRIMARY KEY (`store_id`)
+);
+
 CREATE TABLE `manager` (
   `manager_id` INT UNSIGNED AUTO_INCREMENT,
   `user_id` INT UNSIGNED NOT NULL,
   `store_id` INT UNSIGNED,
   PRIMARY KEY (`manager_id`),
-  FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`)
-);
-
-CREATE TABLE `store` (
-  `store_id` INT UNSIGNED AUTO_INCREMENT,
-  `name` VARCHAR(50),
-  `location` VARCHAR(50),
-  PRIMARY KEY (`store_id`),
-  FOREIGN KEY (`store_id`) REFERENCES `manager`(`store_id`)
+  FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`),
+  FOREIGN KEY (`store_id`) REFERENCES `store`(`store_id`)
 );
 
 CREATE TABLE `offering` (
@@ -87,9 +87,6 @@ INSERT INTO `user` (`password`, `name`) VALUES
 INSERT INTO `shopper` (`user_id`) VALUES
   (1);
 
-INSERT INTO `manager` (`user_id`, `store_id`) VALUES
-  (1, 1);
-
 INSERT INTO `shopping_list` (`shopper_id`, `name`) VALUES
   (1, 'Holiday Dinner List');
 
@@ -104,6 +101,10 @@ INSERT INTO `category` (`name`) VALUES
 INSERT INTO `store` (`name`, `location`) VALUES
   ('Superstore', 'New Minas, NS'),
   ('Sobeys', 'Wolfville, NS');
+  
+  
+INSERT INTO `manager` (`user_id`, `store_id`) VALUES
+  (1, 1);
 
 INSERT INTO `product` (`category_id`, `name`, `brand`, `description`, `perishable`, `lifespan`, `organic`) VALUES
   (1, '3.25% Milk', 'Scotsburn', 'Really darn good milk for anything.', 'Yes', 30, 'No'),
@@ -119,7 +120,7 @@ INSERT INTO `offering` (`store_id`, `product_id`, `price`) VALUES
   (1, 1, 6.26),
   (1, 3, 3.99),
   (1, 6, 6.9),
-  (2, 4, 3.5,
+  (2, 4, 3.5),
   (2, 5, 3.29),
   (1, 5, 2.19),
   (1, 2, 2.4);

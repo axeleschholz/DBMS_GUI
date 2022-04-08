@@ -44,11 +44,3 @@ function getOfferings(id) {
     $("#table_body").html(html_string);
   });
 }
-
-function getProduct(id) {
-  //make a request to server.php
-  $.get("server.php?action=getProduct?id=" + id, function (data) {
-    product = JSON.parse(data); //this may not be correct
-    return product;
-  });
-}

@@ -13,11 +13,13 @@ function getData() {
 
     $(data).each(function (key, object) {
       //HTML table row
-      html_string += '<tr id="' + object["Store_id"]; //Add a conditional for organic = green
-      '"><td>' +
-        object["Name"] +
+      html_string +=
+        '<tr id="' +
+        object["store_id"] +
+        '"><td>' +
+        object["name"] +
         "</td><td>" +
-        object["Location"] +
+        object["location"] +
         "</td><td>";
     });
 

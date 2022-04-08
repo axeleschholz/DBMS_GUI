@@ -3,7 +3,7 @@
 // curl http://localhost/Assignment7/server.php?action=getcustomerorders"&"id=1
 
 //get db connection (database, username, pwd)
-$con = mysqli_connect("localhost","store_user", "passw0rd", "store");
+$con = mysqli_connect("localhost","administrator", "passw0rd", "store_database");
 
 // Check connection
 if (mysqli_connect_errno())
@@ -17,10 +17,25 @@ if (mysqli_connect_errno())
 //get the requested action and build the appropriate SQL query
 $action = $_GET['action'];
 
-if ($action === 'getcustomers') {
+if ($action === 'getProducts') {
 
     //get all fields and rows in the Contact table
-    $sql_statement = "SELECT customer_id, first_name, last_name, email, mobile, birthdate, added FROM customer ORDER BY customer_id ASC;";
+    $sql_statement = "SELECT * FROM product ORDER BY product_id ASC;";
+
+} else if ($action === 'getProduct') {
+
+    //get all fields and rows in the Contact table
+    $sql_statement = "SELECT * FROM offering WHERE product_id=" .$_GET['id']. " ORDER BY price ASC;";
+
+} else if ($action === 'getStores') {
+
+    //get all fields and rows in the Contact table
+    $sql_statement = "SELECT * FROM store ORDER BY store_id ASC;";
+
+} else if ($action === 'getStore') {
+
+    //get all fields and rows in the Contact table
+    $sql_statement = "SELECT * FROM store WHERE store_id=" .$_GET['id']. ";";
 
 } else if ($action === 'getcustomerorders') {
     //get all fields FROM A SPECIFIC ROW in the Contact table
