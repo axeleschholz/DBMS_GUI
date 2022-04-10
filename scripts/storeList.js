@@ -19,13 +19,15 @@ function getData() {
     $(data).each(function (key, object) {
       //HTML table row
       html_string +=
-        '<tr id="' +
+        "<tr onclick=\"window.location='store.html?id=" +
+        object["store_id"] +
+        '\'" id="' +
         object["store_id"] +
         '"><td>' +
         object["name"] +
         "</td><td>" +
         object["location"] +
-        "</td><td>";
+        "</td><tr>";
     });
 
     //set the HTML string on the client

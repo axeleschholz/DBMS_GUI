@@ -22,3 +22,8 @@
     background-color: #04AA6D;
     color: white;
 }
+
+.table-hover tbody tr:hover td {
+    background: gray;
+    color: white;
+}
