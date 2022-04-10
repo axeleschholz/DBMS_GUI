@@ -21,6 +21,10 @@ if ($action === 'getProducts') {
 
     $sql_statement = "SELECT category.name AS 'category.name', product.name, product.product_id, product.brand, product.description, product.category_id FROM product LEFT JOIN category ON product.category_id=category.category_id ORDER by product_id ASC;";
 
+} else if ($action === 'getProduct') {
+
+    $sql_statement = "SELECT category.name AS 'category.name', product.* FROM product LEFT JOIN category ON product.category_id=category.category_id WHERE product_id=" .$_GET['id']. " ORDER by product_id ASC;";
+
 } else if ($action === 'getProductOfferings') {
 
     $sql_statement = "SELECT store.name AS 'store.name', offering.offering_id, offering.store_id, offering.price, offering.update_time FROM offering LEFT JOIN store ON offering.store_id=store.store_id WHERE product_id=" .$_GET['id']. " ORDER by price ASC;";

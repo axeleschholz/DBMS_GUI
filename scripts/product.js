@@ -2,29 +2,36 @@
 $(document).ready(function () {
   //get all the data
   var url = new URL(window.location.href);
-  var storeID = url.searchParams.get("id");
-  getData(storeID);
-  getOfferings(storeID);
+  var productID = url.searchParams.get("id");
+  getData(productID);
+  getStores(productID);
 });
 
 function getData(id) {
   //make a request to server.php
-  $.get("server.php?action=getStore&id=" + id, function (data) {
-    var store = data[0];
+  $.get("server.php?action=getProduct&id=" + id, function (data) {
+    var product = data[0];
     var html_string =
       "<h1>Name: " +
-      store["name"] +
-      "</h1><h2>Location: " +
-      store["location"] +
-      "</h2>";
+      product["name"] +
+      "</h1><h2>Brand: " +
+      product["brand"] +
+      "</h2><table class=table><tbody><tr><td>Organic:<td>" +
+      product["organic"] +
+      "</td></tr><tr><td>Perishable:</td><td>" +
+      product["perishable"] +
+      "</td></tr><tr><td>Description:</td><td>" +
+      product["description"] +
+      "</td></tr></tbody></table>";
+    console.log(html_string);
     //set the HTML string on the client
     $("#information").html(html_string);
   });
 }
 
-function getOfferings(id) {
+function getStores(id) {
   //make a request to server.php
-  $.get("server.php?action=getStoreProducts&id=" + id, function (data) {
+  $.get("server.php?action=getProductOfferings&id=" + id, function (data) {
     //iterate over the JSON response, building an HTML string
     var html_string = "";
     $(data).each(function (key, object) {
@@ -32,16 +39,10 @@ function getOfferings(id) {
       html_string +=
         '<tr id="' +
         object["offering_id"] + //Add a conditional for organic = green
-        '"><td><a href=product.html?id=' +
-        object["product_id"] +
+        '"><td><a href=store.html?id=' +
+        object["store_id"] +
         ">" +
-        object["name"] +
-        "</td><td>" +
-        object["brand"] +
-        "</td><td>" +
-        object["description"] +
-        "</td><td>" +
-        object["category.name"] +
+        object["store.name"] +
         "</td><td>" +
         object["price"] +
         "</td><td>" +
