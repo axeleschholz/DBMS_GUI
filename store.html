@@ -17,16 +17,16 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
         <!--the script for this page, requests data from API when page is loadd -->
-        <script src="script.js"></script>
+        <script src="scripts/store.js"></script>
     </head>
     <body>
 
         <div class="container">
-            <div class="information">
+            <div id="information">
                 
             </div>
 
-            <h2>Offerings:</h2>
+            <h3>In Stock:</h3>
             <table class='table table-bordered table-striped'>
                 <thead class='thead-dark'>
                     <tr>
@@ -34,8 +34,8 @@
                         <th>Brand</th>
                         <th>Description</th>
                         <th>Category</th>
-                        <th>Lifetime</th>
                         <th>Price</th>
+                        <th>Last Updated</th>
                     </tr>
                 </thead>
                 <tbody id="table_body">

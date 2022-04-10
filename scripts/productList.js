@@ -48,9 +48,11 @@ function getDetails(id) {
         object["offering_id"] +
         '"><td>' +
         object["price"] +
-        "</td><td>" +
+        "</td><td><a href=store.html?id=" +
+        object["store_id"] +
+        ">" +
         object["store.name"] +
-        "</td><td>" +
+        "</a></td><td>" +
         object["update_time"] +
         "</td></tr>";
     });

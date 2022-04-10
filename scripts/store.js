@@ -1,17 +1,22 @@
 //fire the getData() function when the page loads
 $(document).ready(function () {
   //get all the data
-  $id = $param[0];
-  getData(id);
-  getOfferings(id);
+  var url = new URL(window.location.href);
+  var storeID = url.searchParams.get("id");
+  getData(storeID);
+  getOfferings(storeID);
 });
 
 function getData(id) {
   //make a request to server.php
-  $.get("server.php?action=getStore?id=" + id, function (data) {
-    store = JSON.parse(data); //this may not be correct
+  $.get("server.php?action=getStore&id=" + id, function (data) {
+    var store = data[0];
     var html_string =
-      "<h3>Name: " + store["Name"] + ", Location: " + store["Location"];
+      "<h1>Name: " +
+      store["name"] +
+      "</h1><h2>Location: " +
+      store["location"] +
+      "</h2>";
     //set the HTML string on the client
     $("#information").html(html_string);
   });
@@ -19,24 +24,26 @@ function getData(id) {
 
 function getOfferings(id) {
   //make a request to server.php
-  $.get("server.php?action=getStoreProducts?id=" + id, function (data) {
+  $.get("server.php?action=getStoreProducts&id=" + id, function (data) {
     //iterate over the JSON response, building an HTML string
     var html_string = "";
-    var product;
     $(data).each(function (key, object) {
       //HTML table row
-      product = getProduct(object["Product_id"]);
-      html_string += '<tr id="' + object["Offering_id"]; //Add a conditional for organic = green
-      '"><td>' +
-        product["Name"] +
+      html_string +=
+        '<tr id="' +
+        object["offering_id"] + //Add a conditional for organic = green
+        '"><td>' +
+        object["name"] +
         "</td><td>" +
-        product["Brand"] +
+        object["brand"] +
         "</td><td>" +
-        product["Description"] +
+        object["description"] +
         "</td><td>" +
-        product["Lifetime"] +
+        object["category.name"] +
         "</td><td>" +
-        object["Price"] +
+        object["price"] +
+        "</td><td>" +
+        object["update_time"] +
         "</td><tr>"; //add CRUD functionality for manager
     });
 
