@@ -19,7 +19,9 @@ function getData() {
       html_string +=
         '<tr id="' +
         object["product_id"] +
-        '"><td>' +
+        '"><td><a href=product.html?id=' +
+        object["product_id"] +
+        ">" +
         object["name"] +
         "</td><td>" +
         object["brand"] +
