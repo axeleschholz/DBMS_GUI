@@ -1,5 +1,10 @@
 //fire the getData() function when the page loads
 $(document).ready(function () {
+  //load navbar
+  $.get("navigation.html", function (data) {
+    $("#nav-placeholder").replaceWith(data);
+  });
+
   //get all the data
   var url = new URL(window.location.href);
   var storeID = url.searchParams.get("id");

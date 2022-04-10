@@ -1,5 +1,9 @@
 //fire the getData() function when the page loads
 $(document).ready(function () {
+  $.get("navigation.html", function (data) {
+    $("#nav-placeholder").replaceWith(data);
+  });
+
   //get all the data
   getData();
 });
