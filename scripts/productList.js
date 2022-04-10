@@ -22,9 +22,7 @@ function getData() {
         "</td><td>" +
         object["description"] +
         "</td><td>" +
-        object["description"] +
-        "</td><td>" +
-        object["lifespan"] +
+        object["category.name"] +
         "</td><td>";
       html_string +=
         '<a href="#" onclick="getDetails(' +
@@ -37,30 +35,21 @@ function getData() {
   });
 }
 
-//A work in progress
-function getStore(id) {
-  //make a request to server.php
-  var store = $.get("server.php?action=getStore?id=" + id, function (data) {
-    store = JSON.parse(data); //this may not be correct
-    return store;
-  });
-  return store;
-}
-
 //this method will "get" a specific record (by id) and open a Dialog to view the details (e.g. email address)
 function getDetails(id) {
-  $.get("server.php?action=getProduct&id=" + id, function (data) {
+  $.get("server.php?action=getProductOfferings&id=" + id, function (data) {
     //build the dynamic HTML
     var html_string = "";
     html_string +=
-      "<tr></td><td colspan=6><table class='table'><thead class='thead-dark'><tr><th>Price</th><th>Date</th></tr></thead><tbody>";
+      "<tr></td><td colspan=6><table class='table'><thead class='thead-dark'><tr><th>Price</th><th>Store</th><th>Date</th></tr></thead><tbody>";
     $(data).each(function (key, object) {
-      //HTML table row
       html_string +=
         '<tr id="' +
         object["offering_id"] +
         '"><td>' +
         object["price"] +
+        "</td><td>" +
+        object["store.name"] +
         "</td><td>" +
         object["update_time"] +
         "</td></tr>";
@@ -74,7 +63,7 @@ function getDetails(id) {
       '); return false;">hide</a>&nbsp;';
     $("#products > tbody > #" + id).after(html_string);
     $("#products > tbody > #" + id + " > td")
-      .eq(5)
+      .eq(4) //change to correct column
       .html(html_command);
   });
 }
@@ -88,6 +77,6 @@ function closeDetails(id) {
     .next()
     .remove();
   $("#products > tbody > #" + id + " > td")
-    .eq(5)
+    .eq(4) //change to correct column
     .html(html_command);
 }

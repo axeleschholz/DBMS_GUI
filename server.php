@@ -19,27 +19,23 @@ $action = $_GET['action'];
 
 if ($action === 'getProducts') {
 
-    //get all fields and rows in the Contact table
-    $sql_statement = "SELECT * FROM product ORDER BY product_id ASC;";
+    $sql_statement = "SELECT category.name AS 'category.name', product.name, product.product_id, product.brand, product.description, product.category_id FROM product LEFT JOIN category ON product.category_id=category.category_id ORDER by product_id ASC;";
 
-} else if ($action === 'getProduct') {
+} else if ($action === 'getProductOfferings') {
 
-    //get all fields and rows in the Contact table
-    $sql_statement = "SELECT * FROM offering WHERE product_id=" .$_GET['id']. " ORDER BY price ASC;";
+    $sql_statement = "SELECT store.name AS 'store.name', offering.offering_id, offering.store_id, offering.price, offering.update_time FROM offering LEFT JOIN store ON offering.store_id=store.store_id WHERE product_id=" .$_GET['id']. " ORDER by price ASC;";
 
 } else if ($action === 'getStores') {
 
-    //get all fields and rows in the Contact table
     $sql_statement = "SELECT * FROM store ORDER BY store_id ASC;";
 
 } else if ($action === 'getStore') {
 
-    //get all fields and rows in the Contact table
     $sql_statement = "SELECT * FROM store WHERE store_id=" .$_GET['id']. ";";
 
-} else if ($action === 'getcustomerorders') {
+} else if ($action === 'getTest') {
     //get all fields FROM A SPECIFIC ROW in the Contact table
-    $sql_statement = "SELECT order_id, customer_id, total, `description`, `date` FROM `order` WHERE customer_id=" .$_GET['id']. " ORDER BY `date` DESC;";
+    $sql_statement = "SELECT store.name AS 'store.name', offering.offering_id, offering.store_id, offering.price, offering.update_time FROM offering LEFT JOIN store ON offering.store_id=store.store_id WHERE product_id=" .$_GET['id']. " ORDER by price DESC;";
 
 } 
 //#######################################################################################################################
