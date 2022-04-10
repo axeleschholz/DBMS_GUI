@@ -3,7 +3,7 @@ $(document).ready(function () {
   $.get("navigation.html", function (data) {
     $("#nav-placeholder").replaceWith(data);
   });
-
+  //set title to product name?
   //get all the data
   getData();
 });

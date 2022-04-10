@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Product</title>
+        <title>About</title>
 
 
         <meta charset="utf-8">
@@ -17,31 +17,23 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
         <!--the script for this page, requests data from API when page is loadd -->
-        <script src="scripts/product.js"></script>
+        <script src="#"></script>
 
         <!--Styles-->
         <link rel="stylesheet" href="styles/styles.css">
     </head>
     <body>
         <div id="nav-placeholder"></div>
+        <script>
+            $.get("navigation.html", function (data) {
+                $("#nav-placeholder").replaceWith(data);
+            });
+        </script>
+
+        
         <div class="container">
-            <div id="information">
-                
-            </div>
-
-            <h3>In Stock:</h3>
-            <table class='table table-bordered table-striped'>
-                <thead class='thead-dark'>
-                    <tr>
-                        <th>Store</th>
-                        <th>Price</th>
-                        <th>Last Updated</th>
-                    </tr>
-                </thead>
-                <tbody id="table_body">
-
-                </tbody>
-            </table>
+            <h2>Shopping Central</h1>
+            <p>Designed by Crewe Bailey, Axel Eschholz, and John Cleyle to make your shopping cheaper and less stressful by enabling you to compare prices at all your favorite local stores before even leaving your house!</p>
         </div>
 
     </body>
