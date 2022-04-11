@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Product</title>
+        <title>Shopping Lists</title>
 
 
         <meta charset="utf-8">
@@ -17,7 +17,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
         <!--the script for this page, requests data from API when page is loadd -->
-        <script src="scripts/product.js"></script>
+        <script src="scripts/shoppingLists.js"></script>
 
         <!--Styles-->
         <link rel="stylesheet" href="styles/styles.css">
@@ -25,17 +25,15 @@
     <body>
         <div id="nav-placeholder"></div>
         <div class="container">
-            <div id="information">
-                
-            </div>
 
-            <h3>Sold at:</h3>
-            <table class='table table-bordered table-striped'>
+            <h2>Shopping Lists:</h2>
+
+            <table id="lists" class='table table-bordered table-striped'>
                 <thead class='thead-dark'>
                     <tr>
-                        <th>Store</th>
-                        <th>Price</th>
-                        <th>Last Updated</th>
+                        <th>Name</th>
+                        <th>Owner</th>
+                        <th>Contents</th>
                     </tr>
                 </thead>
                 <tbody id="table_body">
